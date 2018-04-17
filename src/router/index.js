@@ -4,6 +4,7 @@ import Login from '@/components/Login'
 import Dashboard from '@/components/Dashboard'
 import Cluster from '@/components/Cluster'
 import Tenant from '@/components/Tenant'
+import NotFound from '@/components/NotFound'
 
 Vue.use(Router)
 
@@ -28,6 +29,11 @@ export default new Router({
       path: '/tenant',
       name: 'Tenant',
       component: Tenant
+    },
+    {
+      path: '*',
+      name: 'NotFound',
+      component: NotFound
     }
   ]
 })

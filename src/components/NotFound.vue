@@ -1,14 +1,12 @@
 <template>
   <div>
-    <h1>Login</h1>
-    <form>
-      <label></label>
-    </form>
+    <h1>Page not found</h1>
   </div>
 </template>
+
 <script>
 export default {
-  name: 'Login'
+  name: 'NotFound'
 }
 </script>
 
