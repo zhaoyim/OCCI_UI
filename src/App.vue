@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <img src="./assets/logo.png">
+    <h1>{{ $t("hello") }}</h1>
     <hr>
     <router-link to='/Dashboard'>Dashboard</router-link>
     <router-link to='/Cluster'>Cluster</router-link>

@@ -1,4 +1,4 @@
-export const changeMsg = ({commit}) => {
+export const changeMsg = ({ commit }) => {
   commit({
     type: 'mutationMsg',
     msg: 'Changed msg'
