@@ -4,3 +4,10 @@ export const changeMsg = ({ commit }) => {
     msg: 'Changed msg'
   })
 }
+
+export const changeLang = ({ commit }, payload) => {
+  commit({
+    type: 'mutationLang',
+    lang: payload.lang
+  })
+}

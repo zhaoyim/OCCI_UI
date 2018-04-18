@@ -5,11 +5,11 @@ import en from './en'
 
 Vue.use(VueI18n)
 
-const locale = 'en'
+const locale = 'cn'
 
 const messages = {
-  cn: cn,
-  en: en
+  cn,
+  en
 }
 
 const i18n = new VueI18n({

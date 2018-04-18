@@ -1,20 +1,18 @@
 <template>
   <div>
     <h1>Cluster</h1>
-    <p>Current msg: {{ gettersMsg }}</p>
-    <button @click="changeMsg">Click Me</button>
+    <p>Current msg: {{ gettersLang }}</p>
   </div>
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters } from 'vuex'
 export default {
   name: 'Cluster',
   data: function () {
     return {}
   },
-  computed: { ...mapGetters(['gettersMsg']) },
-  methods: { ...mapActions(['changeMsg']) }
+  computed: { ...mapGetters(['gettersLang']) }
 }
 </script>
 

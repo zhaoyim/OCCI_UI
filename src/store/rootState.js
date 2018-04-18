@@ -1,5 +1,6 @@
 const state = {
-  msg: 'Hello world'
+  msg: 'Hello world',
+  lang: 'cn'
 }
 
 export default state

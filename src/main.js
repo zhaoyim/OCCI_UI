@@ -4,6 +4,7 @@ import Vue from 'vue'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import App from './App'
+import LangCtrl from './components/LangCtrl'
 import router from './router'
 import store from './store/index'
 import i18n from './lang/index'
@@ -11,8 +12,10 @@ import i18n from './lang/index'
 Vue.config.productionTip = false
 Vue.use(ElementUI)
 
+Vue.component('lang-ctrl', LangCtrl)
+
 /* eslint-disable no-new */
-new Vue({
+export const occiapp = new Vue({
   el: '#app',
   router,
   store, // Mount vuex store

@@ -2,6 +2,7 @@
   <div id="app">
     <img src="./assets/logo.png">
     <h1>{{ $t("hello") }}</h1>
+    <lang-ctrl></lang-ctrl>
     <hr>
     <router-link to='/Dashboard'>Dashboard</router-link>
     <router-link to='/Cluster'>Cluster</router-link>
