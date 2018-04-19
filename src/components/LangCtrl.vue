@@ -1,7 +1,9 @@
 <template>
-  <div>
-    <button @click="changeToCN">中文</button>
-    <button @click="changeToEN">English</button>
+  <div class="ci-buttongroup">
+    <el-radio-group v-model="lang" @change="changeTo" size="small">
+      <el-radio-button :label="lang_cn"></el-radio-button>
+      <el-radio-button :label="lang_en"></el-radio-button>
+    </el-radio-group>
   </div>
 </template>
 <script>
@@ -9,16 +11,32 @@ import { mapActions } from 'vuex'
 export default {
   name: 'LangCtrl',
   data () {
-    return {}
+    return {
+      lang_cn: this.$t('cn'),
+      lang_en: this.$t('en'),
+      lang: this.$t('cn')
+    }
   },
   methods: {
     ...mapActions(['changeLang']),
-    changeToCN: function () {
-      this.changeLang({lang: 'cn'})
-    },
-    changeToEN: function () {
-      this.changeLang({lang: 'en'})
+    changeTo: function () {
+      if (this.lang === this.lang_cn) {
+        this.changeLang({lang: 'cn'})
+      } else if (this.lang === this.lang_en) {
+        this.changeLang({lang: 'en'})
+      } else { // reset to cn
+        this.lang = this.lang_en
+        this.changeLang({lang: 'cn'})
+      }
     }
   }
 }
 </script>
+<style lang="scss" scoped>
+.ci-buttongroup {
+  margin: {
+    top: 10px;
+    bottom: 10px;
+  }
+}
+</style>

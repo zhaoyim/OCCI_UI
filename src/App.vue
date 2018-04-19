@@ -1,13 +1,12 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <h1>{{ $t("hello") }}</h1>
+    <!--
     <lang-ctrl></lang-ctrl>
-    <hr>
     <router-link to='/Dashboard'>Dashboard</router-link>
     <router-link to='/Cluster'>Cluster</router-link>
     <router-link to='/Tenant'>Tenant</router-link>
     <router-link to='/NotExisted'>Not found test</router-link>
+    -->
     <router-view/>
   </div>
 </template>
@@ -23,8 +22,6 @@ export default {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  margin: 0;
 }
 </style>

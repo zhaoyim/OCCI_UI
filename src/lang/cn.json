@@ -1,3 +1,10 @@
 {
-  "hello": "你好"
+  "OCCI": "OCCI--集群洞察",
+  "logins": {
+    "LOGIN": "登陆",
+    "USERNAME": "用户名",
+    "PASSWORD": "密码"
+  },
+  "cn": "中文",
+  "en": "English"
 }
