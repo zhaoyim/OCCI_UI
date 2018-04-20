@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Login from '@/components/Login'
+import Main from '@/components/Main'
 import Dashboard from '@/components/Dashboard'
 import Cluster from '@/components/Cluster'
 import Tenant from '@/components/Tenant'
@@ -16,19 +17,26 @@ export default new Router({
       component: Login
     },
     {
-      path: '/dashboard',
-      name: 'Dashboard',
-      component: Dashboard
-    },
-    {
-      path: '/cluster',
-      name: 'Cluster',
-      component: Cluster
-    },
-    {
-      path: '/tenant',
-      name: 'Tenant',
-      component: Tenant
+      path: '/main',
+      name: 'Mainpage',
+      component: Main,
+      children: [
+        {
+          path: 'dashboard',
+          name: 'Dashboard',
+          component: Dashboard
+        },
+        {
+          path: 'cluster',
+          name: 'Cluster',
+          component: Cluster
+        },
+        {
+          path: 'tenant',
+          name: 'Tenant',
+          component: Tenant
+        }
+      ]
     },
     {
       path: '*',

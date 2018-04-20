@@ -9,6 +9,15 @@
     "ERROR_INFO": "Username or password error!",
     "SUCCESS_INFO": "Login successful"
   },
+  "menu": {
+    "title": "Big Data Smart Maintenance Platform: Cluster Insight",
+    "help": "help",
+    "dashboard": "Dashboard",
+    "cluster": "Cluster",
+    "tenant": "Tenant",
+    "log": "Log",
+    "optimize": "Optimize"
+  },
   "notfound": {
     "title": "Sorry, the page doesn't exist!",
     "reason": "Possible reasons",

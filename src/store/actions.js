@@ -11,3 +11,10 @@ export const changeLang = ({ commit }, payload) => {
     lang: payload.lang
   })
 }
+
+export const logUsername = ({ commit }, payload) => {
+  commit({
+    type: 'mutationUsername',
+    username: payload.username
+  })
+}

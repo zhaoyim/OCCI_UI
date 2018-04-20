@@ -8,3 +8,7 @@ export const mutationLang = (state, payload) => {
   occiapp.$i18n.locale = payload.lang
   state.lang = payload.lang
 }
+
+export const mutationUsername = (state, payload) => {
+  state.username = payload.username
+}

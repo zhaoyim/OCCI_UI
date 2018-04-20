@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>Dashboard</h1>
-    <p>{{ gettersLang }}</p>
+    <p>Welcome, {{ gettersUsername }}</p>
   </div>
 </template>
 
@@ -12,7 +12,7 @@ export default {
   data: function () {
     return {}
   },
-  computed: { ...mapGetters(['gettersLang']) }
+  computed: { ...mapGetters(['gettersUsername']) }
 }
 </script>
 
