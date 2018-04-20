@@ -7,15 +7,21 @@
   </div>
 </template>
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 export default {
   name: 'LangCtrl',
   data () {
     return {
       lang_cn: this.$t('cn'),
       lang_en: this.$t('en'),
-      lang: this.$t('cn')
+      lang: ''
     }
+  },
+  computed: {
+    ...mapGetters(['gettersLang'])
+  },
+  mounted () {
+    this.lang = this.$t(this.gettersLang)
   },
   methods: {
     ...mapActions(['changeLang']),
@@ -35,7 +41,7 @@ export default {
 <style lang="scss" scoped>
 .ci-buttongroup {
   margin: {
-    top: 10px;
+    top: 20px;
     bottom: 10px;
   }
 }

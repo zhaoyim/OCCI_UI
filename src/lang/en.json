@@ -1,9 +1,13 @@
 {
   "OCCI": "OCCI -- Cluster Insights",
+  "LOADING": "Loading...",
   "logins": {
     "LOGIN": "Login",
     "USERNAME": "Username",
-    "PASSWORD": "Password"
+    "PASSWORD": "Password",
+    "MISSING_INFO": "Please fill in the username and password correctly",
+    "ERROR_INFO": "Username or password error!",
+    "SUCCESS_INFO": "Login successful"
   },
   "notfound": {
     "title": "Sorry, the page doesn't exist!",
