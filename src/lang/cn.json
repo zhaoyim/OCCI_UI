@@ -5,6 +5,15 @@
     "USERNAME": "用户名",
     "PASSWORD": "密码"
   },
+  "notfound": {
+    "title": "很抱歉，您要访问的页面不存在！",
+    "reason": "可能原因",
+    "reason1": "网络信号不稳定",
+    "reason2": "找不到请求页面",
+    "reason3": "输入网址不正确",
+    "way": "可以尝试",
+    "wayhome": "返回主页"
+  },
   "cn": "中文",
   "en": "English"
 }

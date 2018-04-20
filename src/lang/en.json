@@ -5,6 +5,15 @@
     "USERNAME": "Username",
     "PASSWORD": "Password"
   },
+  "notfound": {
+    "title": "Sorry, the page doesn't exist!",
+    "reason": "Possible reasons",
+    "reason1": "Network instability",
+    "reason2": "Cannot find the page",
+    "reason3": "URI error",
+    "way": "Try to",
+    "wayhome": "Visit homepage"
+  },
   "cn": "中文",
   "en": "English"
 }
