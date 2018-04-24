@@ -2,8 +2,8 @@
   <div class="mainpage">
     <el-menu :default-active="activeidx" mode="horizontal" background-color="#303643" text-color="#FFFFFF">
       <div class="menu-title"><strong>{{ $t('menu.title') }}</strong></div>
-      <div class="menu-user">{{ gettersUsername }}</div>
-      <div class="menu-help"><i class="el-icon-question"></i>{{ $t('menu.help') }}</div>
+      <div class="menu-user"><font-awesome-icon :icon="['fas', 'user']"></font-awesome-icon><font class="font-awesome-font">{{ gettersUsername }}</font></div>
+      <div class="menu-help"><font-awesome-icon :icon="['fas', 'question-circle']"></font-awesome-icon><font class="font-awesome-font">{{ $t('menu.help') }}</font></div>
       <el-menu-item index="5">{{ $t('menu.optimize') }}</el-menu-item>
       <el-menu-item index="4">{{ $t('menu.log') }}</el-menu-item>
       <el-menu-item index="3">{{ $t('menu.tenant') }}</el-menu-item>
@@ -23,6 +23,9 @@ export default {
       activeidx: '1'
     }
   },
+  mounted () {
+    this.$router.push('/main/dashboard')
+  },
   computed: {
     ...mapGetters(['gettersUsername'])
   }
@@ -34,6 +37,11 @@ export default {
   width: 100%;
   height: 100%;
   .el-menu {
+    .font-awesome-font {
+      margin: {
+        left: 6px;
+      }
+    }
     .menu-title {
       float: left;
       margin: {

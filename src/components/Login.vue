@@ -23,13 +23,13 @@
           <el-col :span="12">
             <el-form ref="form" :model="logindata" label-width="80px">
               <el-form-item>
-                <el-input type="input" :class="{'input-error': login_error}" v-model="logindata.username" :placeholder="$t('logins.USERNAME')" clearable></el-input>
+                <el-input type="input" v-model="logindata.username" :placeholder="$t('logins.USERNAME')" @keyup.enter.native="login" clearable></el-input>
               </el-form-item>
               <el-form-item>
-                <el-input type="password" :class="{'input-error': login_error}" v-model="logindata.password" :placeholder="$t('logins.PASSWORD')" clearable></el-input>
+                <el-input type="password" v-model="logindata.password" :placeholder="$t('logins.PASSWORD')" @keyup.enter.native="login" clearable></el-input>
               </el-form-item>
               <el-form-item>
-                <el-button type="primary" class="login-button" @click="login">{{ $t('logins.LOGIN') }}</el-button>
+                <el-button type="primary" class="login-button" @click="login()">{{ $t('logins.LOGIN') }}</el-button>
               </el-form-item>
             </el-form>
           </el-col>
@@ -68,7 +68,7 @@ export default {
     login: function () {
       if (this.logindata.username.length === 0 || this.logindata.password.length === 0) {
         this.$message({message: this.$t('logins.MISSING_INFO'), duration: 3000})
-      } else {
+      } else if (!this.login_loading) {
         this.login_loading = true
         let flag = false
         for (let info of this.defaultInfos) {
@@ -123,12 +123,6 @@ export default {
     margin-top: 20px;
     text-align: left;
     color: #ffffff;
-  }
-  .el-input {
-    &.input-error {
-      border: 2px solid red;
-      border-radius: 5px;
-    }
   }
 }
 
