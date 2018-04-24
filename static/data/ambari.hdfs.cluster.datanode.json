@@ -1,0 +1,27 @@
+{
+  "ServiceComponentInfo": {
+      "category": "SLAVE",
+      "cluster_name": "testcluster",
+      "component_name": "DATANODE",
+      "display_name": "DataNode",
+      "init_count": 0,
+      "install_failed_count": 0,
+      "installed_count": 0,
+      "recovery_enabled": "false",
+      "service_name": "HDFS",
+      "started_count": 3,
+      "state": "STARTED",
+      "total_count": 3,
+      "unknown_count": 0
+  },
+  "href": "http://10.1.236.61:8080/api/v1/clusters/testcluster/services/HDFS/components/DATANODE?fields=ServiceComponentInfo,metrics/dfs/datanode/NumFailedVolumes,metrics/dfs/datanode/DfsUsed,metrics/dfs/datanode/Capacity",
+  "metrics": {
+      "dfs": {
+          "datanode": {
+              "Capacity": 462213054464.0,
+              "DfsUsed": 25844178944.0,
+              "NumFailedVolumes": 0.0
+          }
+      }
+  }
+}

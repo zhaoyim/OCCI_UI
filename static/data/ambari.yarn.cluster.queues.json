@@ -1,0 +1,8 @@
+{
+  "ServiceComponentInfo": {
+      "cluster_name": "testcluster",
+      "component_name": "RESOURCEMANAGER",
+      "service_name": "YARN"
+  },
+  "href": "http://10.1.236.61:8080/api/v1/clusters/testcluster/services/YARN/components/RESOURCEMANAGER?fields=metrics/yarn/Queue"
+}

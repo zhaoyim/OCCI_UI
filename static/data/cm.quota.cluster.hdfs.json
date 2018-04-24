@@ -1,0 +1,18 @@
+{
+  "items": [
+      {
+          "available": "1",
+          "name": "nameSpaceQuota",
+          "resource": "/hdfscluster1",
+          "size": "1",
+          "used": "0"
+      },
+      {
+          "available": "1000000000",
+          "name": "storageSpaceQuota",
+          "resource": "/hdfscluster1",
+          "size": "1000000000",
+          "used": "0"
+      }
+  ]
+}

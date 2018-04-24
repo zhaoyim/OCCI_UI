@@ -3,44 +3,52 @@
     <h3>{{ $t('dashboard.title') }}</h3>
     <el-row :gutter="30">
       <el-col :span="6">
-        <el-row class="dashboard-info" v-loading="load_hdfs" element-loading-spinner="el-icon-loading" element-loading-background="rgba(0, 0, 0, 0.8)">
-          <el-col :span="8">
-            <div class="panel-badge panel-badge-hdfs"><font-awesome-icon :icon="['fas', 'database']" class="badge-svg"></font-awesome-icon></div>
-          </el-col>
-          <el-col :span="16">
-            <h5>{{ $t('dashboard.hdfsspace') }}</h5>
-          </el-col>
-        </el-row>
+        <el-card shadow="hover" class="dashboard-info" v-loading="load_hdfs" element-loading-spinner="el-icon-loading" element-loading-background="rgba(0, 0, 0, 0.8)">
+          <el-row>
+            <el-col :span="8">
+              <div class="panel-badge panel-badge-hdfs"><font-awesome-icon :icon="['fas', 'database']" class="badge-svg"></font-awesome-icon></div>
+            </el-col>
+            <el-col :span="16">
+              <h5>{{ $t('dashboard.hdfsspace') }}</h5>
+            </el-col>
+          </el-row>
+        </el-card>
       </el-col>
       <el-col :span="6">
-        <el-row class="dashboard-info" v-loading="load_mapreduce" element-loading-spinner="el-icon-loading" element-loading-background="rgba(0, 0, 0, 0.8)">
-          <el-col :span="8">
-            <div class="panel-badge panel-badge-mapreduce"><font-awesome-icon :icon="['far', 'thumbs-up']" class="badge-svg"></font-awesome-icon></div>
-          </el-col>
-          <el-col :span="16">
-            <h5>{{ $t('dashboard.mapreducejobs') }}</h5>
-          </el-col>
-        </el-row>
+        <el-card shadow="hover" class="dashboard-info" v-loading="load_mapreduce" element-loading-spinner="el-icon-loading" element-loading-background="rgba(0, 0, 0, 0.8)">
+          <el-row>
+            <el-col :span="8">
+              <div class="panel-badge panel-badge-mapreduce"><font-awesome-icon :icon="['far', 'thumbs-up']" class="badge-svg"></font-awesome-icon></div>
+            </el-col>
+            <el-col :span="16">
+              <h5>{{ $t('dashboard.mapreducejobs') }}</h5>
+            </el-col>
+          </el-row>
+        </el-card>
       </el-col>
       <el-col :span="6">
-        <el-row class="dashboard-info" v-loading="load_spark" element-loading-spinner="el-icon-loading" element-loading-background="rgba(0, 0, 0, 0.8)">
-          <el-col :span="8">
-            <div class="panel-badge panel-badge-spark"><font-awesome-icon :icon="['fas', 'hourglass-half']" class="badge-svg"></font-awesome-icon></div>
-          </el-col>
-          <el-col :span="16">
-            <h5>{{ $t('dashboard.sparkjobs') }}</h5>
-          </el-col>
-        </el-row>
+        <el-card shadow="hover" class="dashboard-info" v-loading="load_spark" element-loading-spinner="el-icon-loading" element-loading-background="rgba(0, 0, 0, 0.8)">
+          <el-row>
+            <el-col :span="8">
+              <div class="panel-badge panel-badge-spark"><font-awesome-icon :icon="['fas', 'hourglass-half']" class="badge-svg"></font-awesome-icon></div>
+            </el-col>
+            <el-col :span="16">
+              <h5>{{ $t('dashboard.sparkjobs') }}</h5>
+            </el-col>
+          </el-row>
+        </el-card>
       </el-col>
       <el-col :span="6">
-        <el-row class="dashboard-info" v-loading="load_cluster" element-loading-spinner="el-icon-loading" element-loading-background="rgba(0, 0, 0, 0.8)">
-          <el-col :span="8">
-            <div class="panel-badge panel-badge-cluster"><font-awesome-icon :icon="['fas', 'inbox']" class="badge-svg"></font-awesome-icon></div>
-          </el-col>
-          <el-col :span="16">
-            <h5>{{ $t('dashboard.clusterresource') }}</h5>
-          </el-col>
-        </el-row>
+        <el-card shadow="hover" class="dashboard-info" v-loading="load_cluster" element-loading-spinner="el-icon-loading" element-loading-background="rgba(0, 0, 0, 0.8)">
+          <el-row>
+            <el-col :span="8">
+              <div class="panel-badge panel-badge-cluster"><font-awesome-icon :icon="['fas', 'inbox']" class="badge-svg"></font-awesome-icon></div>
+            </el-col>
+            <el-col :span="16">
+              <h5>{{ $t('dashboard.clusterresource') }}</h5>
+            </el-col>
+          </el-row>
+        </el-card>
       </el-col>
     </el-row>
   </div>
@@ -48,21 +56,45 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import { dashboardHDFS, dashboardMapreduce, dashboardSpark, dashboardTenant } from '../services/mock'
 export default {
   name: 'Dashboard',
   data: function () {
     return {
-      load_hdfs: false,
-      load_mapreduce: false,
-      load_spark: false,
-      load_cluster: false
+      load_hdfs: true,
+      load_mapreduce: true,
+      load_spark: true,
+      load_cluster: true
     }
   },
   mounted () {
-    this.axios.get('http://10.1.236.114:8080/api/v1/dashboard/mapreduce/staticstics').then((response) => {
-      console.log(response)
-    }).catch((error) => {
-      console.log(error)
+    dashboardHDFS().then((data) => {
+      console.log(data)
+      this.load_hdfs = false
+    }).catch((err) => {
+      console.log(err)
+      this.load_hdfs = false
+    })
+    dashboardMapreduce().then((data) => {
+      console.log(data)
+      this.load_mapreduce = false
+    }).catch((err) => {
+      console.log(err)
+      this.load_mapreduce = false
+    })
+    dashboardSpark().then((data) => {
+      console.log(data)
+      this.load_spark = false
+    }).catch((err) => {
+      console.log(err)
+      this.load_spark = false
+    })
+    dashboardTenant().then((data) => {
+      this.load_cluster = false
+      console.log(data)
+    }).catch((err) => {
+      this.load_cluster = false
+      console.log(err)
     })
   },
   computed: { ...mapGetters(['gettersUsername']) }
@@ -87,14 +119,6 @@ export default {
       }
     }
     .dashboard-info {
-      padding: {
-        top: 15px;
-        bottom: 16px;
-        left: 20px;
-        right: 10px;
-      }
-      border-radius: 4px;
-      border: 1px solid lightgray;
       h5 {
         color: gray;
         margin: {
