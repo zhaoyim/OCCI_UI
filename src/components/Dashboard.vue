@@ -10,6 +10,8 @@
             </el-col>
             <el-col :span="16">
               <h5>{{ $t('dashboard.hdfsspace') }}</h5>
+              <strong>{{ hdfs.used }}/{{ hdfs.total }}</strong>
+              <p><font class="panel-percentage" :class="hdfs_percentage_classes">{{ hdfs.percentage }}%</font>{{ $t('dashboard.usage') }}</p>
             </el-col>
           </el-row>
         </el-card>
@@ -22,6 +24,7 @@
             </el-col>
             <el-col :span="16">
               <h5>{{ $t('dashboard.mapreducejobs') }}</h5>
+              <strong>{{ mapreduce.jobs }}</strong>
             </el-col>
           </el-row>
         </el-card>
@@ -34,6 +37,7 @@
             </el-col>
             <el-col :span="16">
               <h5>{{ $t('dashboard.sparkjobs') }}</h5>
+              <strong>{{ spark.jobs }}</strong>
             </el-col>
           </el-row>
         </el-card>
@@ -46,6 +50,8 @@
             </el-col>
             <el-col :span="16">
               <h5>{{ $t('dashboard.clusterresource') }}</h5>
+              <strong>{{ tenant.tenant }}/{{ tenant.total }}</strong>
+              <p><font class="panel-percentage" :class="tenant_percentage_classes">{{ tenant.percentage }}%</font>{{ $t('dashboard.satisfation') }}</p>
             </el-col>
           </el-row>
         </el-card>
@@ -64,40 +70,80 @@ export default {
       load_hdfs: true,
       load_mapreduce: true,
       load_spark: true,
-      load_cluster: true
+      load_cluster: true,
+      hdfs: {
+        used: 0,
+        total: 0,
+        percentage: 0
+      },
+      mapreduce: {
+        jobs: 0
+      },
+      spark: {
+        jobs: 0
+      },
+      tenant: {
+        total: 0,
+        tenant: 0,
+        percentage: 0
+      }
     }
   },
   mounted () {
-    dashboardHDFS().then((data) => {
-      console.log(data)
+    dashboardHDFS().then((response) => {
+      let used = response.data.used
+      let total = response.data.total
+      this.hdfs.used = Math.round(used)
+      this.hdfs.total = Math.round(total)
+      this.hdfs.percentage = Math.round(used * 10000 / total) / 100
       this.load_hdfs = false
     }).catch((err) => {
       console.log(err)
       this.load_hdfs = false
     })
-    dashboardMapreduce().then((data) => {
-      console.log(data)
+    dashboardMapreduce().then((response) => {
+      this.mapreduce.jobs = Math.round(response.data.count)
       this.load_mapreduce = false
     }).catch((err) => {
       console.log(err)
       this.load_mapreduce = false
     })
-    dashboardSpark().then((data) => {
-      console.log(data)
+    dashboardSpark().then((response) => {
+      this.spark.jobs = Math.round(response.data.count)
       this.load_spark = false
     }).catch((err) => {
       console.log(err)
       this.load_spark = false
     })
-    dashboardTenant().then((data) => {
+    dashboardTenant().then((response) => {
+      let tenant = response.data.tenant
+      let total = response.data.total
+      this.tenant.tenant = Math.round(tenant)
+      this.tenant.total = Math.round(total)
+      this.tenant.percentage = Math.round(tenant * 10000 / total) / 100
       this.load_cluster = false
-      console.log(data)
     }).catch((err) => {
       this.load_cluster = false
       console.log(err)
     })
   },
-  computed: { ...mapGetters(['gettersUsername']) }
+  computed: {
+    ...mapGetters(['gettersUsername']),
+    hdfs_percentage_classes: function () {
+      return {
+        'panel-percentage-danger': this.hdfs.percentage >= 80,
+        'panel-percentage-warning': this.hdfs.percentage >= 50 && this.hdfs.percentage < 80,
+        'panel-percentage-success': this.hdfs.percentage < 50
+      }
+    },
+    tenant_percentage_classes: function () {
+      return {
+        'panel-percentage-danger': this.tenant.percentage < 30,
+        'panel-percentage-warning': this.tenant.percentage >= 30 && this.tenant.percentage < 60,
+        'panel-percentage-success': this.tenant.percentage >= 60
+      }
+    }
+  }
 }
 </script>
 
@@ -125,8 +171,33 @@ export default {
           top: 5px;
           left: 0;
           right: 0;
-          bottom: 10px;
+          bottom: 0;
         }
+      }
+      strong {
+        font-size: 2.4em;
+        padding: 0;
+        margin: 0;
+      }
+      p {
+        color: dimgray;
+        font-size: 0.8em;
+        font-weight: 700;
+        padding: 0;
+        margin: 0;
+      }
+      .panel-percentage {
+        font-weight: 900;
+        padding-right: 4px;
+      }
+      .panel-percentage-danger {
+        color: red;
+      }
+      .panel-percentage-warning {
+        color: gold;
+      }
+      .panel-percentage-success {
+        color: lime;
       }
       .panel-badge {
         width: 96px;

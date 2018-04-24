@@ -23,7 +23,9 @@
     "hdfsspace": "HDFS space(PB)",
     "mapreducejobs": "MapReduce jobs",
     "sparkjobs": "Spark jobs",
-    "clusterresource": "Configuration satisfaction of cluster resource"
+    "clusterresource": "Configuration satisfaction of cluster resource",
+    "usage": "Used",
+    "satisfation": "Satisfied"
   },
   "notfound": {
     "title": "Sorry, the page doesn't exist!",

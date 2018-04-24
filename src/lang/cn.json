@@ -23,7 +23,9 @@
     "hdfsspace": "HDFS存储空间(PB)",
     "mapreducejobs": "MapReduce作业日吞吐量(jobs)",
     "sparkjobs": "Spark作业日吞吐量(jobs)",
-    "clusterresource": "集群资源配置满足率(租户)"
+    "clusterresource": "集群资源配置满足率(租户)",
+    "usage": "使用率",
+    "satisfation": "满足率"
   },
   "notfound": {
     "title": "很抱歉，您要访问的页面不存在！",
