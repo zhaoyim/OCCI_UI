@@ -57,6 +57,38 @@
         </el-card>
       </el-col>
     </el-row>
+    <el-row :gutter="30">
+      <el-col :span="16">
+        <el-card shadow="hover" class="panel-with-title">
+          <div slot="header" class="clearfix">
+            <font class="panel-title">{{ $t('dashboard.CPUusage') }}</font>
+          </div>
+        </el-card>
+      </el-col>
+      <el-col :span="8">
+        <el-card shadow="hover" class="panel-with-title">
+          <div slot="header" class="clearfix">
+            <font class="panel-title">{{ $t('dashboard.Clustersatisfy') }}</font>
+          </div>
+        </el-card>
+      </el-col>
+    </el-row>
+    <el-row :gutter="30">
+      <el-col :span="16">
+        <el-card shadow="hover" class="panel-with-title">
+          <div slot="header" class="clearfix">
+            <font class="panel-title">{{ $t('dashboard.Memoryusage') }}</font>
+          </div>
+        </el-card>
+      </el-col>
+      <el-col :span="8">
+        <el-card shadow="hover" class="panel-with-title">
+          <div slot="header" class="clearfix">
+            <font class="panel-title">{{ $t('dashboard.MRSparkjobtrends') }}</font>
+          </div>
+        </el-card>
+      </el-col>
+    </el-row>
   </div>
 </template>
 
@@ -221,6 +253,22 @@ export default {
       }
       .panel-badge-cluster {
         background-color: lightcoral;
+      }
+    } // end of dashboard-info
+    .panel-with-title {
+      .panel-title {
+        padding: 0;
+        font-weight: 700;
+        color: dimgray;
+      }
+      .clearfix {
+        &:before, &:after {
+          display: table;
+          content: ""
+        }
+        &:after {
+          clear: both;
+        }
       }
     }
   }

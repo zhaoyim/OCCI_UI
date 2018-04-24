@@ -1,12 +1,5 @@
 <template>
   <div id="app">
-    <!--
-    <lang-ctrl></lang-ctrl>
-    <router-link to='/Dashboard'>Dashboard</router-link>
-    <router-link to='/Cluster'>Cluster</router-link>
-    <router-link to='/Tenant'>Tenant</router-link>
-    <router-link to='/NotExisted'>Not found test</router-link>
-    -->
     <router-view/>
   </div>
 </template>

@@ -25,7 +25,11 @@
     "sparkjobs": "Spark jobs",
     "clusterresource": "Configuration satisfaction of cluster resource",
     "usage": "Used",
-    "satisfation": "Satisfied"
+    "satisfation": "Satisfied",
+    "CPUusage": "CPU usage trends",
+    "Memoryusage": "Memory usage trends",
+    "Clustersatisfy": "Satisfation of cluster resource",
+    "MRSparkjobtrends": "MR/Spark job trends"
   },
   "notfound": {
     "title": "Sorry, the page doesn't exist!",

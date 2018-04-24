@@ -25,7 +25,11 @@
     "sparkjobs": "Spark作业日吞吐量(jobs)",
     "clusterresource": "集群资源配置满足率(租户)",
     "usage": "使用率",
-    "satisfation": "满足率"
+    "satisfation": "满足率",
+    "CPUusage": "CPU计算资源使用趋势",
+    "Memoryusage": "内存计算资源使用趋势",
+    "Clustersatisfy": "集群资源满足度",
+    "MRSparkjobtrends": "MR/Spark作业执行趋势"
   },
   "notfound": {
     "title": "很抱歉，您要访问的页面不存在！",
