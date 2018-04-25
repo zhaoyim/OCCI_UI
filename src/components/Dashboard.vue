@@ -63,6 +63,7 @@
           <div slot="header" class="clearfix">
             <font class="panel-title">{{ $t('dashboard.CPUusage') }}</font>
           </div>
+          <div id="cpuecharts"></div>
         </el-card>
       </el-col>
       <el-col :span="8">
@@ -70,6 +71,7 @@
           <div slot="header" class="clearfix">
             <font class="panel-title">{{ $t('dashboard.Clustersatisfy') }}</font>
           </div>
+          <div id="clusterecharts"></div>
         </el-card>
       </el-col>
     </el-row>
@@ -79,6 +81,7 @@
           <div slot="header" class="clearfix">
             <font class="panel-title">{{ $t('dashboard.Memoryusage') }}</font>
           </div>
+          <div id="memoryecharts"></div>
         </el-card>
       </el-col>
       <el-col :span="8">
@@ -86,6 +89,7 @@
           <div slot="header" class="clearfix">
             <font class="panel-title">{{ $t('dashboard.MRSparkjobtrends') }}</font>
           </div>
+          <div id="mrsparkecharts"></div>
         </el-card>
       </el-col>
     </el-row>
@@ -118,10 +122,67 @@ export default {
         total: 0,
         tenant: 0,
         percentage: 0
+      },
+      echarts: {
+        cpuusage: null,
+        cluster: null,
+        memoryusage: null
+      },
+      echarts_options: {
+        cpuusage: {
+          xAxis: {
+            type: 'category',
+            boundaryGap: false,
+            data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+          },
+          yAxis: {
+            type: 'value'
+          },
+          series: [{
+            data: [820, 932, 901, 934, 1290, 1330, 1320],
+            type: 'line',
+            areaStyle: {}
+          }]
+        },
+        cluster: {
+          series: [
+            {
+              name: this.$t('dashboard.resourcesatisfy'),
+              type: 'pie',
+              radius: ['50%', '70%'],
+              avoidLabelOverlap: false,
+              label: {
+                normal: {
+                  show: true,
+                  position: 'center',
+                  textStyle: {
+                    fontSize: '30'
+                  }
+                },
+                emphasis: {
+                  show: true,
+                  textStyle: {
+                    fontSize: '30',
+                    fontWeight: 'bold'
+                  }
+                }
+              },
+              labelLine: {
+                normal: {
+                  show: false
+                }
+              },
+              data: [
+                {value: 100, name: `45%\n${this.$t('dashboard.resourcesatisfy')}`}
+              ]
+            }
+          ]
+        }
       }
     }
   },
   mounted () {
+    // Get mock data
     dashboardHDFS().then((response) => {
       let used = response.data.used
       let total = response.data.total
@@ -158,6 +219,18 @@ export default {
       this.load_cluster = false
       console.log(err)
     })
+    // Configuration of Echarts
+    let cpudom = document.getElementById('cpuecharts')
+    this.echarts.cpuusage = this.$echarts.init(cpudom)
+    this.echarts.cpuusage.setOption(this.echarts_options.cpuusage)
+    let clusterdom = document.getElementById('clusterecharts')
+    this.echarts.cluster = this.$echarts.init(clusterdom)
+    this.echarts.cluster.setOption(this.echarts_options.cluster)
+    // this.$echarts.init(document.getElementById('memoryecharts')).setOption(this.echarts_options.memoryusage)
+    window.onresize = () => {
+      this.echarts.cpuusage.resize()
+      this.echarts.cluster.resize()
+    }
   },
   computed: {
     ...mapGetters(['gettersUsername']),
@@ -270,6 +343,22 @@ export default {
           clear: both;
         }
       }
+    } // end of panel-with-title
+    #cpuecharts {
+      width: 100%;
+      height: 460px;
+    }
+    #memoryecharts {
+      width: 100%;
+      height: 460px;
+    }
+    #clusterecharts {
+      width: 100%;
+      height: 460px;
+    }
+    #mrsparkecharts {
+      width: 100%;
+      height: 460px;
     }
   }
 </style>

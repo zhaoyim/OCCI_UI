@@ -29,7 +29,8 @@
     "CPUusage": "CPU计算资源使用趋势",
     "Memoryusage": "内存计算资源使用趋势",
     "Clustersatisfy": "集群资源满足度",
-    "MRSparkjobtrends": "MR/Spark作业执行趋势"
+    "MRSparkjobtrends": "MR/Spark作业执行趋势",
+    "resourcesatisfy": "资源满足度"
   },
   "notfound": {
     "title": "很抱歉，您要访问的页面不存在！",
