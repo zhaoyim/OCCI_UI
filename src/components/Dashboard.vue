@@ -98,7 +98,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import { dashboardHDFS, dashboardMapreduce, dashboardSpark, dashboardTenant } from '../services/mock'
+import { dashboardHDFS, dashboardMapreduce, dashboardSpark, dashboardTenant, dashboardCPUusage, dashboardMemoryusage } from '../services/mock'
 export default {
   name: 'Dashboard',
   data: function () {
@@ -130,19 +130,130 @@ export default {
       },
       echarts_options: {
         cpuusage: {
+          tooltip: {
+            trigger: 'axis'
+          },
           xAxis: {
-            type: 'category',
-            boundaryGap: false,
-            data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+            data: []
           },
           yAxis: {
-            type: 'value'
+            axisLabel: {
+              formatter: function (params) {
+                return `${params}%`
+              }
+            },
+            splitLine: {
+              show: false
+            }
           },
-          series: [{
-            data: [820, 932, 901, 934, 1290, 1330, 1320],
+          toolbox: {
+            left: 'center',
+            feature: {
+              dataZoom: {
+                yAxisIndex: 'none'
+              },
+              restore: {},
+              saveAsImage: {}
+            }
+          },
+          visualMap: {
+            top: 10,
+            right: 10,
+            pieces: [{
+              gt: 0,
+              lte: 50,
+              label: '0% ~ 50%',
+              color: '#096'
+            }, {
+              gt: 50,
+              lte: 80,
+              label: '50% ~ 80%',
+              color: '#ff9933'
+            }, {
+              gt: 80,
+              label: '> 80%',
+              color: '#cc0033'
+            }],
+            outOfRange: {
+              color: '#999'
+            }
+          },
+          series: {
+            name: 'CPU usage',
             type: 'line',
-            areaStyle: {}
-          }]
+            data: [],
+            markLine: {
+              silent: true,
+              data: [{
+                yAxis: 50
+              }, {
+                yAxis: 80
+              }]
+            }
+          }
+        },
+        memoryusage: {
+          tooltip: {
+            trigger: 'axis'
+          },
+          xAxis: {
+            data: []
+          },
+          yAxis: {
+            axisLabel: {
+              formatter: function (params) {
+                return `${params}%`
+              }
+            },
+            splitLine: {
+              show: false
+            }
+          },
+          toolbox: {
+            left: 'center',
+            feature: {
+              dataZoom: {
+                yAxisIndex: 'none'
+              },
+              restore: {},
+              saveAsImage: {}
+            }
+          },
+          visualMap: {
+            top: 10,
+            right: 10,
+            pieces: [{
+              gt: 0,
+              lte: 50,
+              label: '0% ~ 50%',
+              color: '#096'
+            }, {
+              gt: 50,
+              lte: 80,
+              label: '50% ~ 80%',
+              color: '#ff9933'
+            }, {
+              gt: 80,
+              label: '> 80%',
+              color: '#cc0033'
+            }],
+            outOfRange: {
+              color: '#999'
+            }
+          },
+          series: {
+            name: 'CPU usage',
+            type: 'line',
+            data: [],
+            markLine: {
+              silent: true,
+              data: [{
+                yAxis: 50
+              }, {
+                yAxis: 80
+              }]
+            }
+          }
         },
         cluster: {
           series: [
@@ -182,7 +293,14 @@ export default {
     }
   },
   mounted () {
-    // Get mock data
+    /*
+     * Get mock data of top line
+     * HDFS
+     * Mapreduce
+     * Spark
+     * Tenant
+     */
+    // HDFS
     dashboardHDFS().then((response) => {
       let used = response.data.used
       let total = response.data.total
@@ -194,6 +312,7 @@ export default {
       console.log(err)
       this.load_hdfs = false
     })
+    // Mapreduce jobs
     dashboardMapreduce().then((response) => {
       this.mapreduce.jobs = Math.round(response.data.count)
       this.load_mapreduce = false
@@ -201,6 +320,7 @@ export default {
       console.log(err)
       this.load_mapreduce = false
     })
+    // Spark jobs
     dashboardSpark().then((response) => {
       this.spark.jobs = Math.round(response.data.count)
       this.load_spark = false
@@ -208,6 +328,7 @@ export default {
       console.log(err)
       this.load_spark = false
     })
+    // Tenant satisfation rate
     dashboardTenant().then((response) => {
       let tenant = response.data.tenant
       let total = response.data.total
@@ -219,18 +340,69 @@ export default {
       this.load_cluster = false
       console.log(err)
     })
-    // Configuration of Echarts
+    /*
+     * Echarts
+     * CPUusage
+     * Cluster satisfation
+     * Memoryusage
+     * MRSpark jobs
+     */
+    // CPU usage
     let cpudom = document.getElementById('cpuecharts')
-    this.echarts.cpuusage = this.$echarts.init(cpudom)
-    this.echarts.cpuusage.setOption(this.echarts_options.cpuusage)
+    if (cpudom) {
+      this.echarts.cpuusage = this.$echarts.init(cpudom)
+      this.echarts.cpuusage.setOption(this.echarts_options.cpuusage)
+      dashboardCPUusage(100).then((response) => {
+        this.echarts.cpuusage.setOption({
+          xAxis: {
+            data: response.map(function (item) {
+              return item[0]
+            })
+          },
+          series: {
+            data: response.map(function (item) {
+              return item[1]
+            })
+          }
+        })
+      }).catch((err) => {
+        console.log(err)
+      })
+    }
+    // Cluster satisfation
     let clusterdom = document.getElementById('clusterecharts')
     this.echarts.cluster = this.$echarts.init(clusterdom)
     this.echarts.cluster.setOption(this.echarts_options.cluster)
-    // this.$echarts.init(document.getElementById('memoryecharts')).setOption(this.echarts_options.memoryusage)
+    // Memory usage
+    let memorydom = document.getElementById('memoryecharts')
+    if (memorydom) {
+      this.echarts.memoryusage = this.$echarts.init(memorydom)
+      this.echarts.memoryusage.setOption(this.echarts_options.memoryusage)
+      dashboardMemoryusage(100).then((response) => {
+        this.echarts.memoryusage.setOption({
+          xAxis: {
+            data: response.map(function (item) {
+              return item[0]
+            })
+          },
+          series: {
+            data: response.map(function (item) {
+              return item[1]
+            })
+          }
+        })
+      }).catch((err) => {
+        console.log(err)
+      })
+    }
+    // resize redraw echarts
+    window.addEventListener('resize', this.echartsRedraw)
+    /*
     window.onresize = () => {
       this.echarts.cpuusage.resize()
       this.echarts.cluster.resize()
     }
+    */
   },
   computed: {
     ...mapGetters(['gettersUsername']),
@@ -248,6 +420,16 @@ export default {
         'panel-percentage-success': this.tenant.percentage >= 60
       }
     }
+  },
+  methods: {
+    echartsRedraw: function () {
+      this.echarts.cpuusage.resize()
+      this.echarts.cluster.resize()
+      this.echarts.memoryusage.resize()
+    }
+  },
+  beforeDestroy () {
+    window.removeEventListener('resize', this.echartsRedraw)
   }
 }
 </script>

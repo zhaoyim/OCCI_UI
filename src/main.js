@@ -16,8 +16,10 @@ import solid from '@fortawesome/fontawesome-free-solid'
 import regular from '@fortawesome/fontawesome-free-regular'
 import brands from '@fortawesome/fontawesome-free-brands'
 import echarts from 'echarts'
+import moment from 'moment'
 
 Vue.prototype.$echarts = echarts
+Vue.prototype.$moment = moment
 Vue.config.productionTip = false
 // import element UI
 Vue.use(ElementUI)
